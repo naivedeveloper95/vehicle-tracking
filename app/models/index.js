@@ -11,15 +11,14 @@ module.exports.insert = async (
     }
 }
 
-module.exports.update = async (
+module.exports.fetchLatest = async (
     collectionName,
     selectionCriteria,
-    body,
     options
 ) => {
     const { db } = options;
     try {
-        return db.collection(collectionName).update(collectionName, selectionCriteria, body);
+        return db.collection(collectionName).find(selectionCriteria).sort({ _id: -1 }).limit(1);
     } catch (error) {
         console.error(error);
     }
