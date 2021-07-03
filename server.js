@@ -9,10 +9,12 @@ const config = require(__dirname + '/config');
 const db = require(process.cwd() + '/config/db.js');
 const appDir = config.appDir;
 
+const { environmentOptions } = config;
+const { server } = environmentOptions;
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({ extended: true }))
-app.set('port', process.env.PORT || config.port);
+app.set('port', process.env.PORT || server.port);
 app.use(headers);
 
 db.init().then(client => {
