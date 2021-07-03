@@ -1,9 +1,7 @@
 'use strict'
 
-const express = require('express')
-  , config = require(process.cwd() + '/config')
-  , appDir = config.appDir
-  , router = express.Router()
+const express = require('express');
+const router = express.Router()
   , middlewares = require(process.cwd() + '/app/platform-middlewares')
   , User = require(process.cwd() + '/app/controllers/auth.js')
   , Roles = require(process.cwd() + '/app/controllers/roles.js')
