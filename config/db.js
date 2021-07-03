@@ -7,7 +7,7 @@ const { path, name } = database;
 
 const client = new MongoClient(path, { useNewUrlParser: true, useUnifiedTopology: true });
 
-export const init = () => {
+module.exports.init = () => {
   return new Promise((resolve, reject) => {
     client.connect().then((db) => {
       resolve(db.db(name));
