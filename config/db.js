@@ -1,17 +1,16 @@
 const config = require(__dirname + '/index.js');
-const mongodb = require('mongodb').MongoClient
+const { MongoClient } = require('mongodb');
 
-module.exports.init = () => {
+const { environmentOptions } = config;
+const { database } = environmentOptions;
+const { path, name } = database;
+
+const client = new MongoClient(path, { useNewUrlParser: true, useUnifiedTopology: true });
+
+export const init = () => {
   return new Promise((resolve, reject) => {
-    mongodb.connect(config.databaseUrl,
-      { useNewUrlParser: true, useUnifiedTopology: true },
-      (err, db) => {
-        if (err) {
-          reject(err);
-        } else {
-          const client = db.db(`${config.databaseName}`)
-          resolve(client);
-        }
-      })
+    client.connect().then((db) => {
+      resolve(db.db(name));
+    }).catch(error => reject(error));
   });
 }
